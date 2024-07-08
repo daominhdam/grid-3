@@ -16,10 +16,10 @@ public class Grid_3_Demo extends BaseTest {
 	Select select;
 	String firstName, lastName, email, companyName, password;
 
-	@Parameters({"browser", "osName", "ipAddress", "port"})
+	@Parameters({ "browser", "url", "osName", "ipAddress", "port" })
 	@BeforeClass
-	public void beforeClass(String browserName, String osName, String ipAddress, String portNumber) {
-		driver = getBrowserDriver(browserName, osName, ipAddress, portNumber);
+	public void beforeClass(String browserName, String url, String osName, String ipAddress, String portNumber) {
+		driver = getBrowserDriver(browserName, url, osName, ipAddress, portNumber);
 		
 		driver.get("https://demo.nopcommerce.com/");
 

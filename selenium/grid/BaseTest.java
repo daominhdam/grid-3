@@ -2,6 +2,7 @@ package grid;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -15,11 +16,11 @@ public class BaseTest {
 	WebDriver driver;
 	String projectFolder = System.getProperty("user.dir");
 
-	protected WebDriver getBrowserDriver(String browserName, String osName, String ipAddress, String portNumber) {
+	protected WebDriver getBrowserDriver(String browserName, String url, String osName, String ipAddress, String portNumber) {
 		DesiredCapabilities capability = null;
 		Platform platform = null;
 
-		if (osName.contains("windows")) {
+		if (osName.toLowerCase().contains("windows")) {
 			platform = Platform.WINDOWS;
 		} else {
 			platform = Platform.MAC;
@@ -44,7 +45,7 @@ public class BaseTest {
 			break;
 		case "edge":
 			capability = DesiredCapabilities.edge();
-			capability.setBrowserName("edge");
+			capability.setBrowserName("MicrosoftEdge");
 			capability.setPlatform(platform);
 
 			EdgeOptions eOptions = new EdgeOptions();
@@ -59,7 +60,10 @@ public class BaseTest {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-
+		
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get(url);
 		return driver;
 	}
 
